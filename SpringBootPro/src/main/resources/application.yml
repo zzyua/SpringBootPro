@@ -1,0 +1,14 @@
+#VIVO转换文件路径
+vivofilepath: E:\PoiUtil\files
+
+#Mysql数据库地址配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/dbgirl
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto:  update
+    show-sql: true
