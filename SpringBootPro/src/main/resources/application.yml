@@ -1,5 +1,7 @@
 #VIVO转换文件路径
 vivofilepath: E:\PoiUtil\files
+server:
+  port: 8085
 
 #Mysql数据库地址配置
 spring:
