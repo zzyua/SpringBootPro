@@ -52,7 +52,7 @@ public class Sales_volume {
 	 * 地区name
 	 */
 	@NotNull(message="地区不能为空")
-	private Integer regioname;
+	private String regioname;
 	
 	/**
 	 * 修改日期
@@ -100,11 +100,12 @@ public class Sales_volume {
 		this.amount = amount;
 	}
 
-	public Integer getRegioname() {
+	
+	public String getRegioname() {
 		return regioname;
 	}
 
-	public void setRegioname(Integer regioname) {
+	public void setRegioname(String regioname) {
 		this.regioname = regioname;
 	}
 
