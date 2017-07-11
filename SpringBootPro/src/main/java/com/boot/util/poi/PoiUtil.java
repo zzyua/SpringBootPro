@@ -5,11 +5,35 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 
 
 public class PoiUtil {
+	
+	
+	
+	/**
+	 * 根据excel文档，获名为取“XXXX财年”的Sheet
+	 * @return
+	 */
+	public static   Sheet getAnnualStatisSheet(Workbook book) throws Exception {
+		Sheet sheet = null ; 
+		boolean  notFind = true ; //定义开关
+		int sheetIndex = 0 ;
+		while(notFind){
+			Sheet sheetc = book.getSheetAt(sheetIndex);
+			sheetIndex++;
+			int result = sheetc.getSheetName().indexOf("财年");
+			if(result > 0 ){
+				notFind = false ; 
+				sheet = sheetc ;
+			}
+			
+		}
+		return sheet ;
+	}
 
 	/** 
      * 复制单元格 
