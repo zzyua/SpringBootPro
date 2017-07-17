@@ -6,5 +6,7 @@ package com.boot.service.interfaces;
  *
  */
 public interface ISalesvoService {
+	
+	
 
 }
