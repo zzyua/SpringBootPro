@@ -14,9 +14,12 @@ spring:
     hibernate:
       ddl-auto:  update
     show-sql: true
+  thymeleaf:
+    cache: false
     
 mybatis:
   type-aliases-package: com.boot.entity
+  
     
 
  

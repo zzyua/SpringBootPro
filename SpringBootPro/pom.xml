@@ -71,6 +71,12 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 		
+		<!-- thymeleaf 模版引擎 -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+		
 		<!-- 基准测试 -->
 		 <dependency>
 	        <groupId>org.openjdk.jmh</groupId>
