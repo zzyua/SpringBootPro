@@ -33,6 +33,8 @@ public class StatisticsController {
 	
 	@GetMapping(value="do/test")
 	public String showAmount(Model model){
+		List<Sales_volume> lists = salesvoDao.findAll() ;
+		model.addAttribute("lists", lists);
 		return "amount";
 	}
 	
