@@ -4,15 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.boot.cases.bootdemo.Result;
 import com.boot.cases.bootdemo.ResultUtil;
@@ -22,7 +22,7 @@ import com.boot.util.poi.PoiUtil;
 /**
  * 年度统计Excel操作Controller
  */
-@RestController
+@Controller
 public class StatisticsController {
 	
 	
@@ -30,6 +30,11 @@ public class StatisticsController {
 	@Autowired
 	private Sales_volumeMapper salesvoDao;
 	
+	
+	@GetMapping(value="do/test")
+	public String showAmount(Model model){
+		return "amount";
+	}
 	
 	@GetMapping(value = "do/findall")
 	public Result findAll(){
