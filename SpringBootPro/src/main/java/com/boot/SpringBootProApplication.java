@@ -24,19 +24,23 @@ public class SpringBootProApplication {
 	
 	 @RequestMapping("/")
 	    public String index(Model model){
-		 	Person onePerson = new Person("微儿博客", 18);
-			
-			List<Person> list = new ArrayList<Person>();
-			Person p1 = new Person("张三", 18);
-			Person p2 = new Person("李四", 19);
-			Person p3 = new Person("王五", 20);
-			list.add(p1);
-			list.add(p2);
-			list.add(p3);
-			
-			model.addAttribute("oneperson", onePerson);//向模板传数据
-			model.addAttribute("people", list);
-	        return "indexs";
+//		 	Person onePerson = new Person("微儿博客", 18);
+//			
+//			List<Person> list = new ArrayList<Person>();
+//			Person p1 = new Person("张三", 18);
+//			Person p2 = new Person("李四", 19);
+//			Person p3 = new Person("王五", 20);
+//			Person p4= new Person("王6", 20);
+//			Person p5 = new Person("王7", 20);
+//			list.add(p1);
+//			list.add(p2);
+//			list.add(p3);
+//			list.add(p4);
+//			list.add(p5);
+//			
+//			model.addAttribute("oneperson", onePerson);//向模板传数据
+//			model.addAttribute("people", list);
+	        return "index";
 	    }
 	 
 	 

@@ -1750,8 +1750,11 @@
 	 */
 	function _fnDraw( oSettings )
 	{
+		
+		
 		/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
 		var aPreDraw = _fnCallbackFire( oSettings, 'aoPreDrawCallback', 'preDraw', [oSettings] );
+		
 		if ( $.inArray( false, aPreDraw ) !== -1 )
 		{
 			_fnProcessingDisplay( oSettings, false );
@@ -1802,8 +1805,37 @@
 			return;
 		}
 	
+		
 		if ( aiDisplay.length !== 0 )
 		{
+			
+			console.log("aiDisplay.length="+aiDisplay.length);
+			var result_am = 0 ; 
+//			var counts_am = aiDisplay.length;
+			var counts_am = 0;
+			
+			for ( var j=0 ; j<counts_am ; j++ ){
+				var iDataIndex = aiDisplay[j];
+				var aoData = oSettings.aoData[ iDataIndex ];
+				if ( aoData.nTr === null )
+				{
+					_fnCreateTr( oSettings, iDataIndex );
+				}
+				
+				
+//				console.log(aoData._aData[4]);
+//				console.log(typeof(aoData._aData[4]));
+				result_am +=  result_am + Number(aoData._aData[4]);
+			}
+			
+		//	statisticsAmounts(result_am , counts_am)
+			
+//			console.log("xxxxxxxxxxxxxxxxxx");
+//			console.log("iDisplayStart="+iDisplayStart);
+//			console.log("iDisplayEnd="+iDisplayEnd);
+//			console.log("oSettings="+oSettings.aoData.length);
+			
+			
 			var iStart = bServerSide ? 0 : iDisplayStart;
 			var iEnd = bServerSide ? oSettings.aoData.length : iDisplayEnd;
 	
@@ -1817,6 +1849,8 @@
 				}
 	
 				var nRow = aoData.nTr;
+//				console.log(aoData._aData[4]);
+//				console.log(typeof(nRow));
 	
 				/* Remove the old striping classes and then add the new one */
 				if ( iStripes !== 0 )
@@ -1833,7 +1867,9 @@
 				_fnCallbackFire( oSettings, 'aoRowCallback', null,
 					[nRow, aoData._aData, iRowCount, j] );
 	
+		
 				anRows.push( nRow );
+				
 				iRowCount++;
 			}
 		}
@@ -1861,15 +1897,16 @@
 		/* Header and footer callbacks */
 		_fnCallbackFire( oSettings, 'aoHeaderCallback', 'header', [ $(oSettings.nTHead).children('tr')[0],
 			_fnGetDataMaster( oSettings ), iDisplayStart, iDisplayEnd, aiDisplay ] );
-	
+		
 		_fnCallbackFire( oSettings, 'aoFooterCallback', 'footer', [ $(oSettings.nTFoot).children('tr')[0],
 			_fnGetDataMaster( oSettings ), iDisplayStart, iDisplayEnd, aiDisplay ] );
 	
 		var body = $(oSettings.nTBody);
-	
+		
 		body.children().detach();
 		body.append( $(anRows) );
-	
+		
+		
 		/* Call all required callback functions for the end of a draw */
 		_fnCallbackFire( oSettings, 'aoDrawCallback', 'draw', [oSettings] );
 	
@@ -1877,6 +1914,10 @@
 		oSettings.bSorted = false;
 		oSettings.bFiltered = false;
 		oSettings.bDrawing = false;
+		
+		//statisticsAmounts();
+		
+//		console.log("eeeeeeeeeeeeeeeeeeeeeeee");
 	}
 	
 	
@@ -1888,6 +1929,7 @@
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnReDraw( settings, holdPosition )
+	
 	{
 		var
 			features = settings.oFeatures,
@@ -2552,7 +2594,9 @@
 	
 					// Need to redraw, without resorting
 					settings._iDisplayStart = 0;
+//					console.log("_fnDraw start.............");
 					_fnDraw( settings );
+					
 				}
 			} )
 			.bind( 'keypress.DT', function(e) {
@@ -2627,6 +2671,7 @@
 		/* Tell the draw function we have been filtering */
 		oSettings.bFiltered = true;
 		_fnCallbackFire( oSettings, null, 'search', [oSettings] );
+		
 	}
 	
 	
@@ -4829,6 +4874,7 @@
 	 */
 	function _fnCallbackFire( settings, callbackArr, event, args )
 	{
+//		console.log("_fnCallbackFire .............................");
 		var ret = [];
 	
 		if ( callbackArr ) {
@@ -4841,6 +4887,7 @@
 			$(settings.nTable).trigger( event+'.dt', args );
 		}
 	
+//		console.log(ret);
 		return ret;
 	}
 	
@@ -12771,6 +12818,10 @@
 		 */
 		"fnRecordsDisplay": function ()
 		{
+//			console.log(this.aiDisplay.length);
+			
+			
+			
 			return _fnDataSource( this ) == 'ssp' ?
 				this._iRecordsDisplay * 1 :
 				this.aiDisplay.length;

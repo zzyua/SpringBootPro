@@ -31,20 +31,20 @@ public class StatisticsController {
 	private Sales_volumeMapper salesvoDao;
 	
 	
-	@GetMapping(value="do/test")
+	@GetMapping(value="do/findall")
 	public String showAmount(Model model){
 		List<Sales_volume> lists = salesvoDao.findAll() ;
 		model.addAttribute("lists", lists);
 		return "amount";
 	}
 	
-	@GetMapping(value = "do/findall")
-	public Result findAll(){
-		return ResultUtil.success(salesvoDao.findAll());
-	}
+//	@GetMapping(value = "do/findall")
+//	public Result findAll(){
+//		return ResultUtil.success(salesvoDao.findAll());
+//	}
 	
 	@GetMapping(value = "do/insertall")
-	public  void testInsert() throws Exception {
+	public  String  insertOrUpdate( Model model ) throws Exception {
 
 		String file = "D:/poi/files/移动销量数据2017.4-2018.3.xlsx";
 		
@@ -52,20 +52,37 @@ public class StatisticsController {
 		Workbook wb = null;
 		Sheet sheet = null ;
 		FileOutputStream fileOut = null;
+		List<Sales_volume> listEntits  = null ; 
 		ins = new FileInputStream(new File(file));
 		wb = WorkbookFactory.create(ins);
 		try {
 			sheet =  PoiUtil.getAnnualStatisSheet(wb); //wb.getSheetAt(2);//
+			listEntits = PoiUtil.getAlllist(sheet);
 		} catch (Exception e) {
 			if(  e instanceof IllegalArgumentException) {
 				System.out.println("没有找到含有【财年】的sheet");
 			}else
 				e.printStackTrace();
+		}finally {
+			if(wb != null)
+				wb.close();
+			if(ins != null)
+				ins.close();
+			if(fileOut != null)
+				fileOut.close();
 		}
 		
-		List<Sales_volume> listEntits = PoiUtil.getAlllist(sheet);
+	
 
 		salesvoDao.insertAll(listEntits);
+		
+		List<Sales_volume> lists = salesvoDao.findAll() ;
+		model.addAttribute("lists", lists);
+		
+		
+		
+		return "amount";
+		
 	}
 	
 	

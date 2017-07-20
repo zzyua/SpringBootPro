@@ -32,14 +32,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- <a class="navbar-brand" href="index.html"> -->
-				<a class="navbar-brand" href="#">
+				<a class="navbar-brand" href="/">
                     <img src="assets/img/logo.png" />
                 </a>
 
             </div>
 
             <div class="right-div">
-                <a href="#" class="btn btn-info pull-right">导入新数据</a>
+                <a href="insertall" class="btn btn-info pull-right">导入</a>
             </div>
         </div>
     </div>
@@ -68,12 +68,14 @@
                     <div class="panel panel-default">
                     <form class="panel-heading"  action="">
                     	 数据信息
+                    	 <button class="btn"> 查询</button>
                     </form>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <div class="panel-body" th:if="${not #lists.isEmpty(lists)}">
+                            <div class="table-responsive"  id="table_msgs">
+                                <table class="table  table-bordered table-hover " id="dataTables-example">
                                     <thead>
-                                        <tr class="success ">
+                                        <tr class="info ">
+                                        	<th>序号</th>
                                             <th>代理商</th>
                                             <th>地区</th>
                                             <th>日期</th>
@@ -81,38 +83,24 @@
                                             
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>店总</td>
-                                            <td>慈溪</td>
-                                            <td>2016-04</td>
-                                            <td class="center">25461</td>
-                                            
+                                    <tbody    >     <!-- th:each="entity,entityStat:${lists}" -->
+                                        <tr    class="odd gradeX"  th:classappend="${entityStat.count%2 ==0}? 'success'"  th:each="entity,entityStat:${lists}"><!--  th:classappend="${entityStat.count%2}? 'success'"  -->
+                                            <td th:text="${entityStat.count}" ></td>
+                                            <td  th:switch="${entity.classcation}"><span th:case="'all'">店总</span><span th:case="*"  th:text="${entity.classcation}" ></span></td>
+                                            <td th:text="${entity.regioname}" ></td>
+                                            <td th:text="${entity.date}"  ></td>
+                                            <td class="center" th:text="${entity.amount}"  key="amount"></td>
                                         </tr>
-										<tr class="odd gradeX">
-                                            <td>vivo</td>
-                                            <td>嘉兴</td>
-                                            <td>2016-05</td>
-                                            <td class="center">987</td>
-                                            
-                                        </tr>
-										<tr class="odd gradeX">
-                                            <td>oppo</td>
-                                            <td>宁波</td>
-                                            <td>2016-06</td>
-                                            <td class="center">1452</td>
-                                            
-                                        </tr>
-
-
-                                       
                                     </tbody>
                                 </table>
+                                
                             </div>
-                            
+                           <!--  <div  style="background: #eee">
+                            	记录：<span class="info" id="total_counts"></span>条 
+                            	合计：<span class="info" id="total_amount"></span>
+                            </div> -->
                         </div>
                     </div>
-                    <!--End Advanced Tables -->
                 </div>
             </div>
     </div>
@@ -130,6 +118,7 @@
     <script th:src="@{../../bootstrap/bootstrap.min.js}"></script>
     <script th:src="@{../../js/jquery.dataTables.js}" type="text/javascript"></script>
     <script th:src="@{../../js/dataTables.bootstrap.js}" type="text/javascript"></script>
-     <script th:src="@{../../js/custom.js}" type="text/javascript"></script>
+     <script th:src="@{../../js/amount.js}" type="text/javascript"></script>
+
 </body>
 </html>
